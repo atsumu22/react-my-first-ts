@@ -4,9 +4,23 @@ import { memo, FC, ReactNode } from 'react';
 
 type Props = {
   children: ReactNode;
+  loading?: boolean;
+  isDisabled?: boolean;
+  onClick: () => void;
 }
 
 export const PrimaryButton: FC<Props> = memo((props) => {
-  const { children } = props;
-  return <Button bg="teal.400" color="white" _hover={{ opacity: "0.8" }}>{children}</Button>
+  const { children, onClick, isDisabled = true, loading = false } = props;
+  return (
+    <Button
+      bg="teal.400"
+      color="white"
+      _hover={{ opacity: "0.8" }}
+      isDisabled={isDisabled}
+      onClick={onClick}
+      isLoading={loading}
+    >
+      {children}
+    </Button>
+  )
 });
