@@ -3,11 +3,8 @@ import {
   Button,
   Drawer,
   DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton
 } from '@chakra-ui/react'
 
 type Props = {
