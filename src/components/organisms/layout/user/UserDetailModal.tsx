@@ -1,7 +1,9 @@
 import { Stack, FormControl, FormLabel, Input } from '@chakra-ui/react';
-import { memo, FC } from 'react';
+import { memo, FC, useContext } from 'react';
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton } from '@chakra-ui/react'
 import { User } from '../../../../types/api/user';
+import { LoginUserContext } from '../../../../provider/LoginUserProvider';
+import { PrimaryButton } from '../../../atoms/PrimaryButton';
 
 type Props = {
   user: User | null;
@@ -11,6 +13,14 @@ type Props = {
 
 export const UserDetailModal: FC<Props> = memo((props) => {
   const { user, isOpen, onClose } = props;
+  const { loginUser } = useContext(LoginUserContext);
+
+  const isAdminFlag = loginUser?.isAdmin;
+  console.log(isAdminFlag);
+
+  const onClickUpdate = () => {
+    alert("you're admin!");
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} autoFocus={false}>
@@ -22,7 +32,7 @@ export const UserDetailModal: FC<Props> = memo((props) => {
           <Stack spacing={4}>
             <FormControl>
               <FormLabel>名前</FormLabel>
-              <Input value={user?.username} isReadOnly />
+              <Input value={user?.username} isReadOnly={!isAdminFlag} />
             </FormControl>
             <FormControl>
               <FormLabel>フルネーム</FormLabel>
@@ -36,6 +46,7 @@ export const UserDetailModal: FC<Props> = memo((props) => {
               <FormLabel>TEL</FormLabel>
               <Input value={user?.phone} isReadOnly />
             </FormControl>
+            {isAdminFlag && <PrimaryButton onClick={onClickUpdate} isDisabled={false}>更新</PrimaryButton>}
           </Stack>
         </ModalBody>
       </ModalContent>

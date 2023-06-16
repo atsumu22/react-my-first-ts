@@ -1,16 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { memo, FC, useEffect, useCallback } from "react";
+import { memo, FC, useEffect, useCallback, useContext } from "react";
 import { Wrap, WrapItem, Spinner, Center, useDisclosure } from '@chakra-ui/react'
 
 import { UserCard } from "../organisms/layout/user/UserCard";
 import { useAllUsers } from "../../hooks/useAllUsers";
 import { UserDetailModal } from "../organisms/layout/user/UserDetailModal";
 import { useSelectedUser } from "../../hooks/useSelectedUser";
+import { LoginUserContext } from "../../provider/LoginUserProvider";
 
 export const UserManagement: FC = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { getUsers, loading, users } = useAllUsers();
   const { onSelectUser, selectedUser } = useSelectedUser();
+  const { loginUser } = useContext(LoginUserContext);
+
+  console.log(loginUser);
 
   useEffect(() => getUsers(), []);
 

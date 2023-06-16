@@ -11,6 +11,7 @@ type Props = {
 
 export const UserCard: FC<Props> = memo((props) => {
   const { id, imageUrl, userName, fullName, onClick } = props;
+
   return (
     <Box
       w="260px"
